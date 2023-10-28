@@ -3,6 +3,7 @@ import 'dart:io';
 import 'dart:typed_data';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart';
 import 'package:newtest/artCollection.dart';
 import 'package:path_provider/path_provider.dart';
@@ -48,6 +49,7 @@ class _HomePageState extends State<HomePage> {
           setState(() {
 
           });
+          Fluttertoast.showToast(msg: "Image download successfully");
           const snackBar = SnackBar(
             content: Text('Image download successfully'),
           );
@@ -210,10 +212,11 @@ class _HomePageState extends State<HomePage> {
                     ),
                     child: DropdownButtonHideUnderline(
                       child: DropdownButton(
+
                         icon: Icon(Icons.expand_more,color: Colors.black,),
                         value: selectedSize,
                         hint: Text("Select Size",style: TextStyle(color: Colors.black),),
-                        items: List.generate(sizeList.length, (index) => DropdownMenuItem(child:Text(sizeList[index],style:TextStyle(color: Colors.black),),value: sizeValueList[index],)),
+                        items: List.generate(sizeList.length, (index) => DropdownMenuItem(child:Text(sizeList[index],style:TextStyle(color: Colors.purple),),value: sizeValueList[index],)),
                         onChanged: (v){
                           setState(() {
                             selectedSize = v.toString();
@@ -254,6 +257,7 @@ class _HomePageState extends State<HomePage> {
               ),
               SizedBox(height: 50,),
               isLoding == true ? Center(child:CircularProgressIndicator(color: Colors.white,)) :  imageList == null ? Text("No image to show",style: TextStyle(fontSize: 16,fontWeight: FontWeight.w500),) :
+                  imageList.length == 0 ? Text("No image to show") :
               Container(
                 child: GridView.builder(
                   shrinkWrap: true,
